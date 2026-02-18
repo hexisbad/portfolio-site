@@ -1,11 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #a74747;
   --foreground: #171717;
-  --background-image-grainy-purple: 
-    linear-gradient(to right, purple, transparent), 
-    url('/noise/noise.svg');
 }
 
 @theme inline {
@@ -17,19 +14,41 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #fc0000;
-    --foreground: #ededed;
+    --background: #131313;
+    --foreground: #d6d6d6;
   }
 }
 
-
 body {
-  background: var(--background),;
+  background: var(--purple);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
 
-
-@theme {
-
+/* Noisy gradient styles */
+.card {
+  height: 100%;
+  width: 100%;
+  /* border-radius: 12px; */
+  /* padding: 24px; */
+  /* background: rgb(15 23 42); */
+  position: relative;
+  overflow: hidden;
+  display: flex;
 }
+
+.card:before {
+  content: "";
+  background-color: transparent;
+  background-image: linear-gradient(to top, transparent 0%, rgba(0, 0, 0, 0.724) 100%), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 182px;
+  opacity: 0.05;
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+/* end of noisy gradient styles */

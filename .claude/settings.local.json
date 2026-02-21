@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__ide__getDiagnostics",
+      "Bash(dir:*)",
+      "Bash(cmd /c \"dir D:\\\\Hex\\\\Projects\\\\Coding\\\\portfolio-site\\\\node_modules\\\\three 2>&1\")"
+    ]
+  }
+}

@@ -8,7 +8,7 @@ interface Scene3dProps {
 }
 function Scene3d(props: Scene3dProps) {
   return (
-      <Canvas className="card bg-zinc-950">
+      <Canvas className="">
         {/* Lighting Controls */}
         <ambientLight intensity={0.5} />
         <directionalLight position={[5, 5, 5]} intensity={3} />

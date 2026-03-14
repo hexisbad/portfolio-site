@@ -1,28 +1,26 @@
 "use client";
+
 import { Canvas } from "@react-three/fiber";
-import RainbowPendant from "./RainbowPendant";
-import { Environment, Text } from "@react-three/drei";
+import { Environment } from "@react-three/drei";
+import GeometricShape from "./GeometricShape";
 
 interface Scene3dProps {
   className?: string;
+  scrollProgress: React.RefObject<{ current: number }>;
 }
-function Scene3d(props: Scene3dProps) {
+
+export default function Scene3d({ className, scrollProgress }: Scene3dProps) {
   return (
-      <Canvas className="">
-        {/* Lighting Controls */}
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[5, 5, 5]} intensity={3} />
-        <Environment preset="city" />
-
-        {/* Camera Controls */}
-
-        {/* 3D Objects */}
-        <RainbowPendant scale={0.05} />
-        <Text>
-          Welcoom
-        </Text>
-      </Canvas>
+    <Canvas
+      className={className}
+      gl={{ alpha: true }}
+      camera={{ position: [0, 0, 5], fov: 45 }}
+      dpr={[1, 1.5]}
+    >
+      <ambientLight intensity={0.5} />
+      <directionalLight position={[5, 5, 5]} intensity={2} />
+      <Environment preset="city" />
+      <GeometricShape scrollProgress={scrollProgress} />
+    </Canvas>
   );
 }
-
-export default Scene3d;

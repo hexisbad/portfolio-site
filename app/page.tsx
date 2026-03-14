@@ -1,29 +1,44 @@
 "use client";
+
+import { useRef } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import Scene3d from "./components/Scene3d";
-import ShaderMesh from "./components/shader/ShaderGradient";
-import { Canvas } from "@react-three/fiber";
+import HeroSection from "./components/home/HeroSection";
+import FeaturedProjects from "./components/home/FeaturedProjects";
+import SkillsGrid from "./components/home/SkillsGrid";
+import ContactCTA from "./components/home/ContactCTA";
+
 export default function Home() {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  // Shared ref for GSAP → R3F communication (no React re-renders)
+  const scrollProgress = useRef({ current: 0 });
+
+  useGSAP(() => {
+    ScrollTrigger.create({
+      trigger: scrollContainerRef.current,
+      start: "top top",
+      end: "bottom bottom",
+      onUpdate: (self) => {
+        scrollProgress.current.current = self.progress;
+      },
+    });
+  });
+
   return (
-    <main className="relative min-h-screen w-full">
-      <div className="absolute w-full h-screen">
-        <Canvas
-          orthographic
-          camera={{ zoom: 1, position: [0, 0, 1] }}
-          dpr={[1, 2]}
-          style={{ display: "block" }}
-        >
-          <ShaderMesh />
-        </Canvas>
+    <div ref={scrollContainerRef}>
+      {/* 3D canvas — fixed, pointer-events disabled so DOM scrolls through */}
+      <div className="fixed inset-0 z-10 pointer-events-none">
+        <Scene3d scrollProgress={scrollProgress} />
       </div>
-      <div className="h-screen">
-        <Scene3d className="relative w-full h-full" />
-        {/* <section id="noise-section" className="w-[400px] h-[100px]  relative card"> */}
-        {/* <div className="isolate h-full relative">
-          <div className="noise h-full w-full"/>
-          <div className="overlay top-0 h-full w-full absolute"/>
-          </div> */}
-        {/* </section> */}
+
+      {/* Scrollable DOM content */}
+      <div className="relative z-20">
+        <HeroSection />
+        <FeaturedProjects />
+        <SkillsGrid />
+        <ContactCTA />
       </div>
-    </main>
+    </div>
   );
 }

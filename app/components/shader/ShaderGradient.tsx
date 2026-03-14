@@ -15,6 +15,11 @@ const fragmentShader = `
   uniform vec2 iResolution;
   varying vec2 vUv;
 
+  // Palette colors: deep indigo, purple, magenta-rose
+  vec3 colorA = vec3(0.153, 0.169, 0.498); // #272b7f
+  vec3 colorB = vec3(0.341, 0.157, 0.529); // #111111
+  vec3 colorC = vec3(0.533, 0.149, 0.565); // #882690
+
   void main() {
     vec2 fragCoord = vUv * iResolution;
 
@@ -25,14 +30,19 @@ const fragmentShader = `
     float a = 0.0;
 
     for (float i = 0.0; i < 8.0; ++i) {
-      a += cos(i - d -a * uv.x);
+      a += cos(i - d - a * uv.x);
       d += sin(uv.y * i + a);
     }
 
-    d += iTime * 0.5;
+    d += iTime * 0.1;
 
-    vec3 col = vec3(cos(uv * vec2(d,a)) * 6.0 + 0.4, cos(a + d) * 0.5 + 0.5);
-    col = cos(col * cos(vec3(d, a, 2.5)) * 0.5 + 0.5);
+    // Use the pattern math to derive a 0–1 palette index
+    float t = cos(a + d) * 0.5 + 0.5;
+
+    // Mix across 3 colors: A → B (t: 0–0.5), B → C (t: 0.5–1)
+    vec3 col = t < 0.5
+      ? mix(colorA, colorB, t * 2.0)
+      : mix(colorB, colorC, (t - 0.5) * 2.0);
 
     gl_FragColor = vec4(col, 1.0);
   }

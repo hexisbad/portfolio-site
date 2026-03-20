@@ -8,6 +8,7 @@ import BentoGrid from "../ui/BentoGrid";
 import BentoCard from "../ui/BentoCard";
 import { skillCategories } from "@/app/lib/constants";
 import { staggerFadeUp } from "@/app/lib/animations";
+import Badge from "../ui/Badge";
 
 export default function SkillsGrid() {
   const gridRef = useRef<HTMLDivElement>(null);
@@ -28,17 +29,17 @@ export default function SkillsGrid() {
         <BentoGrid>
           {skillCategories.map((cat) => (
             <BentoCard key={cat.name} data-card>
-              <h3 className="text-lg font-semibold text-violet mb-3">
+              <h3 className="text-lg font-semibold text-white mb-3 mr-3">
                 {cat.name}
               </h3>
               <ul className="space-y-1.5">
                 {cat.skills.map((skill) => (
-                  <li
+                  <Badge
                     key={skill}
                     className="text-sm text-foreground/60"
                   >
                     {skill}
-                  </li>
+                  </Badge>
                 ))}
               </ul>
             </BentoCard>

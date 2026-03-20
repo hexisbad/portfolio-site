@@ -14,7 +14,7 @@ export default function Scene3d({ className, scrollProgress }: Scene3dProps) {
     <Canvas
       className={className}
       gl={{ alpha: true }}
-      camera={{ position: [0, 0, 5], fov: 45 }}
+      camera={{ position: [0, 0, 0], fov: 45 }}
       dpr={[1, 1.5]}
     >
       <ambientLight intensity={0.5} />

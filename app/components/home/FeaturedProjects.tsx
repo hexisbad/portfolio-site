@@ -35,23 +35,27 @@ export default function FeaturedProjects() {
               colSpan={i === 0 ? 2 : 1}
               data-card
             >
-              <h3 className="text-xl font-semibold text-foreground mb-2">
-                {project.title}
-              </h3>
-              <p className="text-sm text-foreground/50 mb-4 leading-relaxed">
-                {project.description}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {project.tags.map((tag) => (
-                  <Badge key={tag}>{tag}</Badge>
-                ))}
+              <div className="flex gap-4 w-full">
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-xl font-semibold text-white mb-2">
+                    {project.title}
+                  </h3>
+                  <p className="text-sm text-foreground/50 leading-relaxed">
+                    {project.description}
+                  </p>
+                </div>
+                <div className="flex flex-col gap-1.5 items-end shrink-0">
+                  {project.tags.map((tag) => (
+                    <Badge key={tag}>{tag}</Badge>
+                  ))}
+                </div>
               </div>
             </BentoCard>
           ))}
         </BentoGrid>
       </div>
       <div className="mt-8 text-center">
-        <Button href="/projects" variant="ghost">
+        <Button href="/projects" >
           View All Projects &rarr;
         </Button>
       </div>

@@ -1,3 +1,8 @@
+"use client";
+
+import { useRef, useEffect } from "react";
+import { useShaderCard } from "../shader/ShaderCardContext";
+
 interface BentoCardProps extends React.HTMLAttributes<HTMLDivElement> {
   colSpan?: 1 | 2 | 3;
   rowSpan?: 1 | 2;
@@ -21,9 +26,20 @@ export default function BentoCard({
   children,
   ...rest
 }: BentoCardProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { registerCard, unregisterCard } = useShaderCard();
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    registerCard(el);
+    return () => unregisterCard(el);
+  }, [registerCard, unregisterCard]);
+
   return (
     <div
-      className={`card rounded-2xl border border-border/50 bg-surface/60 backdrop-blur-sm p-6
+      ref={ref}
+      className={`card rounded-2xl border border-border/50 backdrop-blur-[2px] p-6
         hover:border-violet/30 transition-colors duration-300
         ${colSpanMap[colSpan]} ${rowSpanMap[rowSpan]} ${className}`}
       {...rest}

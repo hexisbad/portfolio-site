@@ -27,13 +27,14 @@ export default function Home() {
 
   return (
     <div ref={scrollContainerRef}>
+      <div className="absolute fixed w-screen h-screen z-11"></div>
       {/* 3D canvas — fixed, pointer-events disabled so DOM scrolls through */}
       <div className="fixed inset-0 z-10 pointer-events-none">
         <Scene3d scrollProgress={scrollProgress} />
       </div>
 
       {/* Scrollable DOM content */}
-      <div className="relative z-20">
+      <div className="relative  z-20">
         <HeroSection />
         <FeaturedProjects />
         <SkillsGrid />

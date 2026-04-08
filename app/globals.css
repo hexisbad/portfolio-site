@@ -30,6 +30,51 @@ body {
 }
 
 /* sticky note style */
+.post-it {
+  background: #3d3d5b;
+  color: #1c1917;
+  padding: 1.25rem 1.25rem 1.75rem;
+  width: 350px;
+  box-shadow: 3px 6px 18px rgba(0, 0, 0, 0.45);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  position: relative;
+  z-index: 10;
+}
+
+/* tape strip at top */
+.post-it::before {
+  content: "";
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44px;
+  height: 18px;
+  background: rgba(254, 240, 138, 0.65);
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.post-it h1 {
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #92400e;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.post-it ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: rgb(190, 190, 190)
+}
+
+.post-it li + li {
+  margin-top: 0.2rem;
+}
 
 
 /* Noisy gradient card overlay */

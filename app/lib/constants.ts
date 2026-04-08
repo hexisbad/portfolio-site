@@ -81,16 +81,16 @@ export const experiences: Experience[] = [
     company: "TEXL Development",
     period: "2024 — Present",
     description:
-      "Building performant, accessible web applications with React and TypeScript. Leading the migration to a modern component architecture.",
-    tags: ["React", "TypeScript", "Next.js", "Tailwind"],
+      "Building performant, accessible web applications with React and TypeScript. Occasional Unity applications developed for intaractive corporate experience centers.",
+    tags: ["Next.js", "Tailwind", "Strapi CMS", "Unity"],
   },
   {
     role: "Junior Software Developer",
     company: "Tangerine Digital",
     period: "2023 — 2024",
     description:
-      "Developed mobile-first landing pages with React & CSS. Improving coversion rates for telecom & ISP campaigns",
-    tags: ["JavaScript", "React", "CSS", "Git"],
+      "Developed mobile-first landing pages with React & CSS. Improving conversion rates for telecom & ISP campaigns",
+    tags: ["TypeScript", "React", "CSS", "Git"],
   },
   {
     role: "Sales Engineer",

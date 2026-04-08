@@ -22,7 +22,7 @@ export default function ContactPage() {
             say hi — feel free to reach out. I&apos;m always open to new
             opportunities and collaborations.
           </p>
-          <Button href="mailto:hello@example.com">Send an Email</Button>
+          <Button href="mailto:hello@example.com">Send mean Email</Button>
         </div>
 
         <h3 className="text-lg font-semibold text-foreground mb-4">

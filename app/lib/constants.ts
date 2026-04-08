@@ -73,23 +73,67 @@ export const projects: Project[] = [
   },
 ];
 
+export const VISIBLE_EXPERIENCE_COUNT = 2;
+
 export const experiences: Experience[] = [
   {
-    role: "Frontend Developer",
-    company: "Company Name",
+    role: "Junior Software Developer",
+    company: "TEXL Development",
     period: "2024 — Present",
     description:
       "Building performant, accessible web applications with React and TypeScript. Leading the migration to a modern component architecture.",
     tags: ["React", "TypeScript", "Next.js", "Tailwind"],
   },
   {
-    role: "Junior Developer",
-    company: "Previous Company",
+    role: "Junior Software Developer",
+    company: "Tangerine Digital",
     period: "2023 — 2024",
     description:
-      "Developed responsive UI components and integrated REST APIs. Collaborated on design system implementation.",
+      "Developed mobile-first landing pages with React & CSS. Improving coversion rates for telecom & ISP campaigns",
     tags: ["JavaScript", "React", "CSS", "Git"],
   },
+  {
+    role: "Sales Engineer",
+    company: "Sun Star Electromechanical",
+    period: "2021 — 2023",
+    description:
+      "Designed proposals for daytime generator system installations. Created and maintained vital technical documentation for clients and internal teams. Generated over 500,000 AED in sales.",
+    tags: ["Mechanical Design", "Customer Support", "Sales", "CAD"],
+  },
+
+  {
+    role: "Sales Engineer",
+    company: "Lancet Glass Industries",
+    period: "2021 — 2021",
+    description:
+      "Conducted site visits and collaborated with clients to design interior glass solutions. Kept a close loop with estimation, procurement, and production teams to ensure project success.",
+    tags: ["Cold Meetings", "Customer Support", "Sales", "Site visits"],
+  },
+  {
+    role: "Sales Adminstration Trainee",
+    company: "Canon Emirates LLC",
+    period: "2020 — 2020",
+    description:
+      "Bespoke documentation for tender submissions. PowerBI dashboard creation ",
+    tags: ["PowerBI", "Cross-functional Collaboration", "Sales", "Multi-million Tenders"],
+  },
+  {
+    role: "Club President",
+    company: "The GUILD Gaming Club - BITS Pilani, Dubai Campus",
+    period: "2017 — 2019",
+    description:
+      "Hosted monthly gaming events & turnaments. Collaborated with sponsors (MSI, Monster Gaming Notebooks, Zowie) to secure prizes and equipment. All with the help of a crew of over 30 passionate volunteers. ",
+    tags: ["Gaming", "Community", "Volunteer Leader", "Event Management", "Marketing"],
+  },
+  {
+    role: "Head Admin",
+    company: "MEFortress TF2",
+    period: "2011 — 2015",
+    description:
+      "500 member gaming community focused on Team Fortress 2. Organized montly events and tournaments, fostering a welcoming and active community for TF2 players of all skill levels across MENA. Collaborated with gaming cafes to provide servers and host LAN events",
+    tags: ["Competitve Gaming", "Community", "Volunteer Leader", "Event Management", "Marketing"],
+  },
+  
 ];
 
 export const skillCategories: SkillCategory[] = [
@@ -112,10 +156,9 @@ export const skillCategories: SkillCategory[] = [
 ];
 
 export const socialLinks: SocialLink[] = [
-  { label: "GitHub", href: "https://github.com", icon: "github" },
-  { label: "LinkedIn", href: "https://linkedin.com", icon: "linkedin" },
-  { label: "Twitter", href: "https://twitter.com", icon: "twitter" },
-  { label: "Email", href: "mailto:hello@example.com", icon: "mail" },
+  { label: "GitHub", href: "https://github.com/hexisbad", icon: "github" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/advaithkometh/", icon: "linkedin" },
+  { label: "Email", href: "mailto:advaithkometh@gmail.com", icon: "mail" },
 ];
 
 export const navLinks = [

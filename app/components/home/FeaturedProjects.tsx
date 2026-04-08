@@ -22,13 +22,13 @@ export default function FeaturedProjects() {
   });
 
   return (
-    <Section id="projects">
+    <Section id="projects" >
       <SectionHeading
         title="Featured Projects"
         subtitle="A selection of things I've built"
       />
       <div ref={gridRef}>
-        <BentoGrid>
+        <BentoGrid  className="min-h-100vh">
           {featured.map((project, i) => (
             <BentoCard
               key={project.title}

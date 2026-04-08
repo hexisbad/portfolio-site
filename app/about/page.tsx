@@ -28,7 +28,7 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      <Section id="about-skills" animation="fade-up">
+      <Section id="about-skills" animation="fade-in">
         <SectionHeading title="Skills" />
         <BentoGrid>
           {skillCategories.map((cat) => (

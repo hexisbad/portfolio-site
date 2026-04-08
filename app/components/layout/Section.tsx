@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
-type Animation = "fade-up" | "fade-left" | "fade-right" | "none";
+type Animation = "fade-up" | "fade-left" | "fade-right" | "fade-in" | "none";
 
 interface SectionProps {
   id?: string;
@@ -21,6 +21,7 @@ const animationConfigs: Record<
   "fade-up": { y: 60, opacity: 0 },
   "fade-left": { x: -60, opacity: 0 },
   "fade-right": { x: 60, opacity: 0 },
+  "fade-in": { opacity: 0 },
 };
 
 export default function Section({

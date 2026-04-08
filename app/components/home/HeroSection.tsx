@@ -3,49 +3,69 @@
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { useMobile } from "../../lib/useMobile";
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  ready?: boolean;
+}
+
+export default function HeroSection({ ready = true }: HeroSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const nameRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
+  const isMobile = useMobile();
 
   useGSAP(
     () => {
-      if (!nameRef.current) return;
+      if (!nameRef.current || !ready) return;
 
-      // Split name into characters for stagger
-      const text = nameRef.current.textContent || "";
-      nameRef.current.textContent = "";
-      const chars = text.split("").map((char) => {
-        const span = document.createElement("span");
-        span.textContent = char === " " ? "\u00A0" : char;
-        span.style.display = "inline-block";
-        nameRef.current!.appendChild(span);
-        return span;
-      });
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
 
       const tl = gsap.timeline({ delay: 0.3 });
 
-      tl.from(chars, {
-        y: 40,
-        opacity: 0,
-        duration: 0.5,
-        stagger: 0.04,
-        ease: "power3.out",
-      })
-        .from(
-          subtitleRef.current,
-          { y: 20, opacity: 0, duration: 0.6, ease: "power2.out" },
-          "-=0.2"
-        )
-        .from(
-          scrollIndicatorRef.current,
-          { opacity: 0, duration: 0.8, ease: "power2.out" },
-          "-=0.2"
-        );
+      if (isMobile || prefersReducedMotion) {
+        // Single fade-up for the whole name on mobile / reduced motion
+        tl.from(nameRef.current, {
+          y: 30,
+          opacity: 0,
+          duration: 0.6,
+          ease: "power2.out",
+        });
+      } else {
+        // Character stagger on desktop
+        const text = nameRef.current.textContent || "";
+        nameRef.current.textContent = "";
+        const chars = text.split("").map((char) => {
+          const span = document.createElement("span");
+          span.textContent = char === " " ? "\u00A0" : char;
+          span.style.display = "inline-block";
+          nameRef.current!.appendChild(span);
+          return span;
+        });
+
+        tl.from(chars, {
+          y: 40,
+          opacity: 0,
+          duration: 0.5,
+          stagger: 0.04,
+          ease: "power3.out",
+        });
+      }
+
+      tl.from(
+        subtitleRef.current,
+        { y: 20, opacity: 0, duration: 0.6, ease: "power2.out" },
+        "-=0.2"
+      ).from(
+        scrollIndicatorRef.current,
+        { opacity: 0, duration: 0.8, ease: "power2.out" },
+        "-=0.2"
+      );
     },
-    { scope: containerRef }
+    { scope: containerRef, dependencies: [isMobile, ready] }
   );
 
   return (

@@ -1,8 +1,10 @@
 "use client";
 
+import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Environment } from "@react-three/drei";
 import GeometricShape from "./GeometricShape";
+import { useMobile } from "../lib/useMobile";
 
 interface Scene3dProps {
   className?: string;
@@ -10,17 +12,21 @@ interface Scene3dProps {
 }
 
 export default function Scene3d({ className, scrollProgress }: Scene3dProps) {
+  const isMobile = useMobile();
+
   return (
     <Canvas
       className={className}
       gl={{ alpha: true }}
       camera={{ position: [0, 0, 0], fov: 45 }}
-      dpr={[1, 1.5]}
+      dpr={isMobile ? 1 : [1, 1.5]}
     >
       <ambientLight intensity={0.5} />
       <directionalLight position={[5, 5, 5]} intensity={2} />
-      <Environment preset="city" />
-      <GeometricShape scrollProgress={scrollProgress} />
+      <Suspense fallback={null}>
+        {!isMobile && <Environment preset="city" />}
+        <GeometricShape scrollProgress={scrollProgress} isMobile={isMobile} />
+      </Suspense>
     </Canvas>
   );
 }

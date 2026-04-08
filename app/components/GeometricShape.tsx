@@ -7,6 +7,7 @@ import * as THREE from "three";
 
 interface GeometricShapeProps {
   scrollProgress: React.RefObject<{ current: number }>;
+  isMobile: boolean;
 }
 
 // Camera pullback range: completes by this fraction of total scroll
@@ -14,7 +15,7 @@ const CAMERA_DONE_AT = 0.25;
 const CAMERA_START_Z = 0;
 const CAMERA_END_Z = 1005;
 
-export default function GeometricShape({ scrollProgress }: GeometricShapeProps) {
+export default function GeometricShape({ scrollProgress, isMobile }: GeometricShapeProps) {
   const meshRef = useRef<THREE.Mesh>(null);
   const camera = useThree((s) => s.camera);
   const { scene } = useGLTF("/3d/abstract-globe.glb");
@@ -33,7 +34,6 @@ export default function GeometricShape({ scrollProgress }: GeometricShapeProps) 
     const progress = scrollProgress.current?.current ?? 0;
 
     // Camera: pull back from inside the globe as user scrolls
-    // Smoothstep gives a natural ease-in-out curve
     const camT = THREE.MathUtils.clamp(progress / CAMERA_DONE_AT, 0, 1);
     const camSmooth = THREE.MathUtils.smoothstep(camT, 0, 1);
     camera.position.z = THREE.MathUtils.lerp(CAMERA_START_Z, CAMERA_END_Z, camSmooth);
@@ -52,26 +52,43 @@ export default function GeometricShape({ scrollProgress }: GeometricShapeProps) 
   });
 
   return (
-    <Float speed={1.5} rotationIntensity={0.4} floatIntensity={0.5}>
+    <Float
+      speed={1.5}
+      rotationIntensity={isMobile ? 0.2 : 0.4}
+      floatIntensity={isMobile ? 0.3 : 0.5}
+    >
       <mesh ref={meshRef} geometry={geometry}>
-        <MeshTransmissionMaterial
-          thickness={0.2}
-          roughness={0.05}
-          transmission={1}
-          ior={1.5}
-          chromaticAberration={0.06}
-          backside
-          anisotropy={0.3}
-          distortion={0.1}
-          distortionScale={1.0}
-          temporalDistortion={0.1}
-          color="#b48cfa"
-          emissive="#8b5cf6"
-          emissiveIntensity={0.15}
-        />
+        {isMobile ? (
+          <meshStandardMaterial
+            color="#b48cfa"
+            emissive="#8b5cf6"
+            emissiveIntensity={0.3}
+            roughness={0.3}
+            metalness={0.6}
+            transparent
+            opacity={0.85}
+          />
+        ) : (
+          <MeshTransmissionMaterial
+            thickness={0.2}
+            roughness={0.05}
+            transmission={1}
+            ior={1.5}
+            chromaticAberration={0.06}
+            backside
+            anisotropy={0.3}
+            distortion={0.1}
+            distortionScale={1.0}
+            temporalDistortion={0.1}
+            color="#b48cfa"
+            emissive="#8b5cf6"
+            emissiveIntensity={0.15}
+          />
+        )}
       </mesh>
-      {/* Soft purple point light attached to the globe for ambient glow */}
-      <pointLight color="#8a5cf681" intensity={4} distance={12} decay={2} />
+      {!isMobile && (
+        <pointLight color="#8a5cf681" intensity={4} distance={12} decay={2} />
+      )}
     </Float>
   );
 }

@@ -81,9 +81,15 @@ export default function HeroSection({ ready = true }: HeroSectionProps) {
       </h1>
       <p
         ref={subtitleRef}
-        className="mt-6 text-xl md:text-2xl text-foreground/50 font-light"
+        className="mt-6 text-xl md:text-2xl text-foreground/70 tracking-wider font-medium"
       >
-        Frontend Developer
+        Self-taught Developer.
+      </p>
+      <p
+        ref={subtitleRef}
+        className="mt-2 text-xl md:text-2xl text-foreground/50 tracking-wider font-medium"
+      >
+       Turning Logic into Eye-Candy.
       </p>
 
       {/* Scroll indicator */}

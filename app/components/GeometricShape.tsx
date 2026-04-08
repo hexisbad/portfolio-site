@@ -7,6 +7,7 @@ import * as THREE from "three";
 
 interface GeometricShapeProps {
   scrollProgress: React.RefObject<{ current: number }>;
+  sceneReady: React.RefObject<boolean>;
   isMobile: boolean;
 }
 
@@ -15,7 +16,7 @@ const CAMERA_DONE_AT = 0.25;
 const CAMERA_START_Z = 0;
 const CAMERA_END_Z = 1005;
 
-export default function GeometricShape({ scrollProgress, isMobile }: GeometricShapeProps) {
+export default function GeometricShape({ scrollProgress, sceneReady, isMobile }: GeometricShapeProps) {
   const meshRef = useRef<THREE.Mesh>(null);
   const camera = useThree((s) => s.camera);
   const { scene } = useGLTF("/3d/abstract-globe.glb");
@@ -30,6 +31,11 @@ export default function GeometricShape({ scrollProgress, isMobile }: GeometricSh
 
   useFrame((_state, delta) => {
     if (!meshRef.current) return;
+
+    // Signal that the first frame has rendered (shaders are compiled)
+    if (!sceneReady.current) {
+      sceneReady.current = true;
+    }
 
     const progress = scrollProgress.current?.current ?? 0;
 

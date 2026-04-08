@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState, useCallback } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import Scene3d from "./components/Scene3d";
@@ -10,28 +10,16 @@ import SkillsGrid from "./components/home/SkillsGrid";
 import ContactCTA from "./components/home/ContactCTA";
 import Loader from "./components/Loader";
 
-const LOADER_STORAGE_KEY = "model-loaded";
-
 export default function Home() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  // Shared ref for GSAP → R3F communication (no React re-renders)
   const scrollProgress = useRef({ current: 0 });
+  // Flipped to true by GeometricShape after its first useFrame (shaders compiled)
+  const sceneReady = useRef(false);
 
-  // Check localStorage to decide if we need the loader
-  const [showLoader, setShowLoader] = useState(false);
+  const [showLoader, setShowLoader] = useState(true);
   const [ready, setReady] = useState(false);
 
-  useEffect(() => {
-    const hasLoaded = localStorage.getItem(LOADER_STORAGE_KEY);
-    if (hasLoaded) {
-      setReady(true);
-    } else {
-      setShowLoader(true);
-    }
-  }, []);
-
   const handleLoaderComplete = useCallback(() => {
-    localStorage.setItem(LOADER_STORAGE_KEY, "true");
     setShowLoader(false);
     setReady(true);
   }, []);
@@ -50,12 +38,12 @@ export default function Home() {
 
   return (
     <div ref={scrollContainerRef} style={!ready ? { overflow: "hidden", height: "100vh" } : undefined}>
-      {showLoader && <Loader onComplete={handleLoaderComplete} />}
+      {showLoader && <Loader onComplete={handleLoaderComplete} sceneReady={sceneReady} />}
 
       <div className="absolute fixed w-screen h-screen z-11"></div>
       {/* 3D canvas — fixed, pointer-events disabled so DOM scrolls through */}
       <div className="fixed inset-0 z-10 pointer-events-none">
-        <Scene3d scrollProgress={scrollProgress} />
+        <Scene3d scrollProgress={scrollProgress} sceneReady={sceneReady} />
       </div>
 
       {/* Scrollable DOM content */}

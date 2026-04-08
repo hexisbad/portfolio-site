@@ -9,9 +9,10 @@ import { useMobile } from "../lib/useMobile";
 interface Scene3dProps {
   className?: string;
   scrollProgress: React.RefObject<{ current: number }>;
+  sceneReady: React.RefObject<boolean>;
 }
 
-export default function Scene3d({ className, scrollProgress }: Scene3dProps) {
+export default function Scene3d({ className, scrollProgress, sceneReady }: Scene3dProps) {
   const isMobile = useMobile();
 
   return (
@@ -25,7 +26,7 @@ export default function Scene3d({ className, scrollProgress }: Scene3dProps) {
       <directionalLight position={[5, 5, 5]} intensity={2} />
       <Suspense fallback={null}>
         {!isMobile && <Environment preset="city" />}
-        <GeometricShape scrollProgress={scrollProgress} isMobile={isMobile} />
+        <GeometricShape scrollProgress={scrollProgress} sceneReady={sceneReady} isMobile={isMobile} />
       </Suspense>
     </Canvas>
   );

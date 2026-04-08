@@ -6,9 +6,10 @@ import gsap from "gsap";
 
 interface LoaderProps {
   onComplete: () => void;
+  sceneReady: React.RefObject<boolean>;
 }
 
-export default function Loader({ onComplete }: LoaderProps) {
+export default function Loader({ onComplete, sceneReady }: LoaderProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
   const counterRef = useRef<HTMLSpanElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
@@ -34,40 +35,52 @@ export default function Loader({ onComplete }: LoaderProps) {
     });
   }, [progress]);
 
-  // When loading finishes, hold briefly then animate out
+  // Wait for BOTH asset loading AND first frame render (shader compilation)
   useEffect(() => {
-    if (progress >= 100 && !active && !done) {
-      setDone(true);
+    if (progress < 100 || active || done) return;
 
-      // Brief hold so user sees 100%, then exit
-      const tl = gsap.timeline({
-        delay: 0.5,
-        onComplete,
-      });
+    // Poll for sceneReady — it's a ref set by useFrame, not reactive state
+    const interval = setInterval(() => {
+      if (sceneReady.current) {
+        clearInterval(interval);
+        setDone(true);
+      }
+    }, 50);
 
-      tl.to(counterRef.current, {
+    return () => clearInterval(interval);
+  }, [progress, active, done, sceneReady]);
+
+  // Once done, animate out
+  useEffect(() => {
+    if (!done) return;
+
+    const tl = gsap.timeline({
+      delay: 0.4,
+      onComplete,
+    });
+
+    tl.to(counterRef.current, {
+      opacity: 0,
+      y: -20,
+      duration: 0.4,
+      ease: "power2.in",
+    })
+      .to(
+        overlayRef.current?.querySelector("[data-initials]") as Element,
+        { opacity: 0, y: -20, duration: 0.3, ease: "power2.in" },
+        "<0.05"
+      )
+      .to(
+        barRef.current?.parentElement as Element,
+        { opacity: 0, duration: 0.3, ease: "power2.in" },
+        "<0.1"
+      )
+      .to(overlayRef.current, {
         opacity: 0,
-        y: -20,
-        duration: 0.4,
-        ease: "power2.in",
-      })
-        .to(
-          overlayRef.current?.querySelector("[data-initials]") as Element,
-          { opacity: 0, y: -20, duration: 0.3, ease: "power2.in" },
-          "<0.05"
-        )
-        .to(
-          barRef.current?.parentElement as Element,
-          { opacity: 0, duration: 0.3, ease: "power2.in" },
-          "<0.1"
-        )
-        .to(overlayRef.current, {
-          opacity: 0,
-          duration: 0.5,
-          ease: "power2.inOut",
-        });
-    }
-  }, [progress, active, done, onComplete]);
+        duration: 0.5,
+        ease: "power2.inOut",
+      });
+  }, [done, onComplete]);
 
   return (
     <div

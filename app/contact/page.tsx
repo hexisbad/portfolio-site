@@ -6,8 +6,11 @@ import BentoGrid from "../components/ui/BentoGrid";
 import BentoCard from "../components/ui/BentoCard";
 import Button from "../components/ui/Button";
 import { socialLinks } from "../lib/constants";
+import { useState } from "react";
 
 export default function ContactPage() {
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+
   return (
     <div className="pt-24">
       <Section id="contact-page">
@@ -22,7 +25,9 @@ export default function ContactPage() {
             say hi — feel free to reach out. I&apos;m always open to new
             opportunities and collaborations.
           </p>
-          <Button href="mailto:hello@example.com">Send mean Email</Button>
+          <Button href="mailto:hello@example.com" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+            {isHovered ? "Send mean Email :(" : "Send me an Email"}
+            </Button>
         </div>
 
         <h3 className="text-lg font-semibold text-foreground mb-4">

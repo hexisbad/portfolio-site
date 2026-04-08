@@ -31,7 +31,7 @@ export const projects: Project[] = [
   {
     title: "Project One",
     description:
-      "A full-stack web application with real-time collaboration features and an intuitive drag-and-drop interface.",
+      "Details coming soon.",
     tags: ["React", "TypeScript", "Node.js", "WebSocket"],
     href: "#",
     github: "#",
@@ -40,7 +40,7 @@ export const projects: Project[] = [
   {
     title: "Project Two",
     description:
-      "Interactive 3D data visualization dashboard built with WebGL for exploring complex datasets.",
+      "Just need to write it up.",
     tags: ["Three.js", "R3F", "D3.js", "GLSL"],
     href: "#",
     github: "#",
@@ -49,8 +49,8 @@ export const projects: Project[] = [
   {
     title: "Project Three",
     description:
-      "A design system and component library with comprehensive documentation and accessibility support.",
-    tags: ["React", "Storybook", "Tailwind", "A11y"],
+      "Soon!",
+    tags: ["React", "Storybook", "Tailwind", ],
     href: "#",
     github: "#",
     featured: true,
@@ -58,16 +58,16 @@ export const projects: Project[] = [
   {
     title: "Project Four",
     description:
-      "Mobile-first e-commerce platform with optimized performance and smooth animations.",
-    tags: ["Next.js", "Stripe", "GSAP", "Prisma"],
+      "Your persistance is noteworthy.",
+    tags: ["Next.js", "Stripe", "GSAP", "Framer Motion"],
     href: "#",
     github: "#",
   },
   {
     title: "Project Five",
     description:
-      "CLI tool for scaffolding and managing monorepo projects with custom templates.",
-    tags: ["Node.js", "TypeScript", "CLI", "Turborepo"],
+      "WAIT.",
+    tags: ["Node.js", "TypeScript", "Turborepo"],
     href: "#",
     github: "#",
   },

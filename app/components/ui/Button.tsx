@@ -6,6 +6,8 @@ interface ButtonProps {
   className?: string;
   children: React.ReactNode;
   onClick?: () => void;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 }
 
 const variants = {
@@ -21,6 +23,8 @@ export default function Button({
   className = "",
   children,
   onClick,
+  onMouseEnter,
+  onMouseLeave
 }: ButtonProps) {
   const classes = `inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium transition-all duration-300 ${variants[variant]} ${className}`;
 
@@ -33,7 +37,7 @@ export default function Button({
   }
 
   return (
-    <button onClick={onClick} className={classes}>
+    <button onClick={onClick} className={classes} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       {children}
     </button>
   );

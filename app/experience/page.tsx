@@ -60,13 +60,22 @@ export default function ExperiencePage() {
           duration: 0.6,
           stagger: 0.15,
           ease: "power2.out",
+          scale: 2.5,
         });
         // Animate sticky note with a wobble
         if (stickyRef.current) {
           gsap.fromTo(
             stickyRef.current,
             { opacity: 0, y: 20, rotation: 6 },
-            { opacity: 1, y: 0, rotation: 0.1, duration: 0.65, delay: 0.3, ease: "back.out(1.4)" }
+            {
+              opacity: 1,
+              y: 0,
+              rotation: 0.15,
+              duration: 0.65,
+              delay: 0.3,
+              ease: "back.out(1.4)",
+              scale: 1
+            },
           );
         }
       });
@@ -97,6 +106,24 @@ export default function ExperiencePage() {
             <>
               {expanded && (
                 <div ref={hiddenRef}>
+                  <div
+                    ref={stickyRef}
+                    id="sticky-note"
+                    className="post-it mb-12 ml-12  md:absolute md:left-0 md:top-4 md:ml-10"
+                  >
+                    <h1>Some Context</h1>
+                    <ul>
+                      <text>
+                        I got myself a degree in Mechanical Engineering, but I&apos;ve
+                        always wanted to figure out how to code especially since
+                        we kept learning it in school and it made no darn sense
+                        to me 😤 So around 2022, I decided to take the plunge
+                        and learn some{" "}
+                        <span className="text-violet-400">javascript. </span>
+                        Everything below this sticky note is my history prior to learning how to program
+                      </text>
+                    </ul>
+                  </div>
                   {/* First hidden entry */}
                   <div
                     key={`${hiddenExperiences[0].company}-${hiddenExperiences[0].role}`}
@@ -105,23 +132,7 @@ export default function ExperiencePage() {
                   >
                     <ExperienceEntry exp={hiddenExperiences[0]} />
                   </div>
-
                   {/* Sticky note: inline on mobile, absolute-right on desktop */}
-                  <div
-                    ref={stickyRef}
-                    id="sticky-note"
-                    className="post-it mb-12 ml-12 md:mb-0 md:absolute md:left-full md:top-4 md:ml-10"
-                  >
-                    <h1>Some Context</h1>
-                    <ul>
-                      <li>I have a degree in Mechanical Engineering, </li>
-                      <li>but I&apos;ve always wanted to figure out how to code</li>
-                      <li>especially since we kept learning it in school</li>
-                      <li>and it made no darn sense to me 😤</li>
-                      <li>So around 2022, I decided to take the plunge</li>
-                      <li>and learn some <span className="text-violet-400">javascript</span></li>
-                    </ul>
-                  </div>
 
                   {/* Remaining hidden entries */}
                   {hiddenExperiences.slice(1).map((exp) => (

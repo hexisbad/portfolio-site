@@ -13,7 +13,7 @@ interface GeometricShapeProps {
 
 // Camera pullback range: completes by this fraction of total scroll
 const CAMERA_DONE_AT = 0.25;
-const CAMERA_START_Z = 0;
+const CAMERA_START_Z = 400;
 const CAMERA_END_Z = 1005;
 
 export default function GeometricShape({ scrollProgress, sceneReady, isMobile }: GeometricShapeProps) {

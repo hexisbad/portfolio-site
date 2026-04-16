@@ -112,17 +112,15 @@ export default function ExperiencePage() {
                     className="post-it mb-12 ml-12  md:absolute md:left-0 md:top-4 md:ml-10"
                   >
                     <h1>Some Context</h1>
-                    <ul>
-                      <text>
-                        I got myself a degree in Mechanical Engineering, but I&apos;ve
-                        always wanted to figure out how to code especially since
-                        we kept learning it in school and it made no darn sense
-                        to me 😤 So around 2022, I decided to take the plunge
-                        and learn some{" "}
-                        <span className="text-violet-400">javascript. </span>
-                        Everything below this sticky note is my history prior to learning how to program
-                      </text>
-                    </ul>
+                    <p className="text-neutral-300">
+                      I got myself a degree in Mechanical Engineering, but I&apos;ve
+                      always wanted to figure out how to code especially since
+                      we kept learning it in school and it made no darn sense
+                      to me 😤 So around 2022, I decided to take the plunge
+                      and learn some{" "}
+                      <span className="text-violet-400">javascript. </span>
+                      Everything below this sticky note is my history prior to learning how to program
+                    </p>
                   </div>
                   {/* First hidden entry */}
                   <div
